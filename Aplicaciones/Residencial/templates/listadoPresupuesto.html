@@ -1,0 +1,78 @@
+{% extends "./plantilla.html" %}
+{% block contenido %}
+
+<div id="main">
+    <header class="mb-3">
+        <a href="#" class="burger-btn d-block d-xl-none">
+            <i class="bi bi-justify fs-3"></i>
+        </a>
+    </header>
+
+    <div class="page-heading">
+        <h1>Listado de Presupuestos</h1>
+    </div>
+    <div class="page-content">
+        <section class="row">
+            <div class="col-12 col-lg-9">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Presupuestos</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover mb-0" id="tbl_presupuestos">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Proyecto</th>
+                                                <th>Monto</th>
+                                                <th>Descripción</th>
+                                                <th>Tipo</th>
+                                                <th>Fecha de Creación</th>
+                                                <th>Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for presupuesto in presupuestos %}
+                                            <tr>
+                                                <td>{{ presupuesto.id }}</td>
+                                                <td>{{ presupuesto.proyecto.nombre }}</td>
+                                                <td>{{ presupuesto.monto }}</td>
+                                                <td>{{ presupuesto.descripcion }}</td>
+                                                <td>{{ presupuesto.get_tipo_display }}</td>
+                                                <td>{{ presupuesto.fecha_creacion }}</td>
+                                                <td>
+                                                    <a href="/editarPresupuesto/{{ presupuesto.id }}" class="btn btn-warning">Editar</a>
+                                                    <a onclick="return confirm('¿Está seguro de eliminar este presupuesto?');" href="/eliminarPresupuesto/{{ presupuesto.id }}" class="btn btn-danger">Eliminar</a>
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        var table = $('#tbl_presupuestos').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                'copyHtml5',
+                'excelHtml5',
+                'csvHtml5',
+                'pdfHtml5'
+            ]
+        });
+    });
+</script>
+
+{% endblock %}

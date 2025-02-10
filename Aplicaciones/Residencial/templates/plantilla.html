@@ -1,0 +1,281 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyecto Residencial</title>
+    
+
+ <!-- Importando JQUERY-->
+ <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+
+
+     
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+     <link rel="stylesheet" href="{% static 'plantilla/assets/css/bootstrap.css' %}">
+     <link rel="stylesheet" href="{% static 'plantilla/assets/vendors/iconly/bold.css' %}">
+     <link rel="stylesheet" href="{% static 'plantilla/assets/vendors/perfect-scrollbar/perfect-scrollbar.css' %}">
+     <link rel="stylesheet" href="{% static 'plantilla/assets/vendors/bootstrap-icons/bootstrap-icons.css' %}">
+     <link rel="stylesheet" href="{% static 'plantilla/assets/css/app.css' %}">
+     <link rel="shortcut icon" href="{% static 'plantilla/assets/images/favicon.svg' %}" type="image/x-icon">
+
+        <!-- DATATABLE -->
+        <script src="{% static 'plantilla/assets/js/jquery.min.js' %}"></script>
+        <link href="{% static 'plantilla/assets/DataTables/datatables.min.css' %}" rel="stylesheet">
+        <script src="{% static 'plantilla/assets/DataTables/datatables.min.js' %}"></script>
+
+        <!-- validacion -->
+        <script src="{% static 'plantilla/assets/js/jquery.validate.min.js' %}"></script>
+        <script src="{% static 'plantilla/assets/js/jquery.validate.js' %}"></script>
+        <!-- mensajes elegantes -->
+        <link rel="stylesheet" href="{% static 'plantilla/assets/css/iziToast.css' %}">
+        <script src="{% static 'plantilla/assets/js/iziToast.min.js' %}"></script>
+        
+        <!-- Iconos  -->
+
+        <link href="{% static 'plantilla/assets/css/all.min.css' %}" rel="stylesheet">
+           <!-- file input -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.5.4/js/fileinput.min.js" integrity="sha512-0wQvB58Ha5coWmcgtg4f11CTSSxfrfLClUp9Vy0qhzYzCZDSnoB4Vhu5JXJFs7rU24LE6JsH+6hpP7vQ22lk5w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.5.4/css/fileinput.min.css" integrity="sha512-yDVMONIXJPPAoULZ92Ygngsn8ZUGB4ejm6fCc6q9ZvdH8blFAOgg75XZSEaAJ5m4E/yPI1BAi5fF2axMHVuZ5w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- español -->
+    <script src="{% static 'plantilla/assets/js/es.js' %}"></script>
+        <!-- Referencias a scripts externos -->
+        <script src="https://cdn.datatables.net/buttons/3.2.0/js/dataTables.buttons.js"></script>
+        <script src="https://cdn.datatables.net/buttons/3.2.0/js/buttons.dataTables.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+        <script src="https://cdn.datatables.net/buttons/3.2.0/js/buttons.html5.min.js"></script>
+    
+    
+
+   
+
+</head>
+
+<body>
+
+
+    
+    <div class="container">
+        <div id="sidebar" class="active">
+            <div class="sidebar-wrapper active">
+                <div class="sidebar-header">
+                    <div class="d-flex justify-content-between">
+                        <div class="logo">
+                            <img src="{% static 'plantilla/assets/images/logo/logo22.webp' %}" alt="Logo" class="img-fluid mb-4" style="width: 200px; height: auto;" />
+
+                        </div>
+                        <div class="toggler">
+                            <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="sidebar-menu">
+                    <ul class="menu">
+                        <li class="sidebar-title">Menu</li>
+
+                        <li class="sidebar-item active ">
+                            <a href="/" class='sidebar-link'>
+                                <i class="bi bi-grid-fill"></i>
+                                <span>Inicio</span>
+                            </a>
+                        </li>
+
+
+                        <li class="sidebar-title">Formulario &amp; Tablas</li>
+
+                       
+                        <li class="sidebar-item  has-sub">
+                            <a href="#" class='sidebar-link'>
+                                <i class="bi bi-collection-fill"></i>
+                                <span>Ubicación</span>
+                            </a>
+                            <ul class="submenu ">
+                                <li class="submenu-item ">
+                                    <a href="/nuevaUbicacion">Agregar Ubicación</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="/listadoUbicacion">Ver</a>
+                                </li>
+                                
+                            </ul>
+                        </li>
+
+                        <li class="sidebar-item  has-sub">
+                            <a href="#" class='sidebar-link'>
+                                <i class="bi bi-collection-fill"></i>
+                                <span>Proyecto</span>
+                            </a>
+                            <ul class="submenu ">
+                                <li class="submenu-item ">
+                                    <a href="/nuevoProyecto">Agregar Proyecto</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="/listadoProyecto">Ver</a>
+                                </li>
+                                
+                            </ul>
+                        </li>
+
+
+                        <li class="sidebar-item  has-sub">
+                            <a href="#" class='sidebar-link'>
+                                <i class="bi bi-collection-fill"></i>
+                                <span>Presupuesto</span>
+                            </a>
+                            <ul class="submenu ">
+                                <li class="submenu-item ">
+                                    <a href="/nuevoPresupuesto">Agregar Presupuesto</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="/listadoPresupuesto/">Ver</a>
+                                </li>
+                                
+                            </ul>
+                        </li>
+
+
+
+                        <li class="sidebar-item  has-sub">
+                            <a href="#" class='sidebar-link'>
+                                <i class="bi bi-file-earmark-spreadsheet-fill"></i>
+                                <span>Permiso</span>
+                            </a>
+                            <ul class="submenu ">
+                                <li class="submenu-item ">
+                                    <a href="/nuevoPermiso">Agregar Permiso</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="/listadoPermiso/">Ver</a>
+                                </li>
+                                
+                            </ul>
+                        </li>
+
+
+              
+                       
+             
+
+                    </ul>
+                </div>
+                <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+    <!-- Contenido Principal -->
+    <div class="container my-4">
+        {% block contenido %}
+        <!-- Aquí se cargará el contenido específico de cada página -->
+        {% endblock %}
+    </div>
+
+
+    <br><br><br><br>
+    <!-- Pie de Página -->
+   <!-- Pie de Página -->
+    <footer class="custom-footer text-white py-3 mt-4">
+        <div class="container text-center">
+            <h5 class="fw-bold">Desarrollado por: Salomé Agila</h5>
+            <p>&copy; 2025</p>
+        </div>
+    </footer>
+
+
+    <!-- Mensajes de Confirmación con iziToast -->
+    {% if messages %}
+    {% for mensajeConfirmacion in messages %}
+    <script>
+        if ("{{ mensajeConfirmacion.tags }}" == "success") {
+            iziToast.success({
+                title: 'Confirmación',
+                message: '{{ mensajeConfirmacion }}',
+                position: 'topRight'
+            });
+        }
+    </script>
+    {% endfor %}
+    {% endif %}
+
+
+    <style>
+        label.error{
+            color:red;
+            font-weight: bold;
+            margin-top:5px;
+            padding:3px;
+
+        
+        }
+        input.error{
+            border:1px solid red; 
+        }
+
+       
+    </style>
+
+  
+    <script>
+        jQuery.validator.addMethod("letras", function(value, element) {            
+            return this.optional(element) || /^[A-Za-zÁÉÍÓÚÑáéíóúñ ]*$/.test(value);
+           
+          }, "Este campo solo acepta letras"); 
+
+
+    </script>
+    
+
+    <script src="{% static 'plantilla/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js' %}"></script>
+    <script src="{% static 'plantilla/assets/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'plantilla/assets/vendors/apexcharts/apexcharts.js' %}"></script>
+    <script src="{% static 'plantilla/assets/js/pages/dashboard.js' %}"></script>
+    <script src="{% static 'plantilla/assets/js/main.js' %}"></script>
+
+    
+    <script>
+        jQuery.validator.addMethod("letras", function(value, element) {            
+            return this.optional(element) || /^[A-Za-zÁÉÍÓÚÑáéíóúñ ]*$/.test(value);
+           
+          }, "Este campo solo acepta letras"); 
+        jQuery.validator.addMethod("cedula", function(value, element) {
+            if (value.length != 10) {
+                return false;
+            }
+            const digits = value.split('').map(Number);
+            const provinceCode = digits[0] * 10 + digits[1];
+            if (provinceCode < 1 || provinceCode > 24) {
+                return false;
+            }
+            const checkDigit = digits.pop();
+            const sum = digits.reduce((acc, digit, index) => {
+                if (index % 2 === 0) {
+                    const double = digit * 2;
+                    return acc + (double > 9 ? double - 9 : double);
+                }
+                return acc + digit;
+            }, 0);
+            const calculatedCheckDigit = sum % 10 === 0 ? 0 : 10 - (sum % 10);
+            return checkDigit === calculatedCheckDigit;
+        }, "Por favor, ingresa una cédula válida.");
+
+    </script>
+    
+
+
+
+    
+
+
+</body>
+
+</html>

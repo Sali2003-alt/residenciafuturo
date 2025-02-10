@@ -1,0 +1,114 @@
+{% extends "./plantilla.html" %}
+{% block contenido %}
+
+<div id="main">
+    <header class="mb-3">
+        <a href="#" class="burger-btn d-block d-xl-none">
+            <i class="bi bi-justify fs-3"></i>
+        </a>
+    </header>
+
+    <div class="page-heading">
+        <h1>Editar Permiso</h1>
+    </div>
+    <div class="page-content">
+        <section class="row">
+            <div class="col-12 col-lg-9">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Editar Permiso</h4>
+                            </div>
+                            <div class="card-body">
+                                <form action="/procesarEdicionPermiso/" id="frm_editar_permiso" method="post" class="p-4 border rounded bg-light">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="id" value="{{ permiso.id }}">
+
+                                    <div class="form-group mb-3">
+                                        <label for="proyecto" class="form-label"><b>Proyecto:</b></label>
+                                        <select class="form-control" name="proyecto" id="proyecto" required>
+                                            {% for proyecto in proyectos %}
+                                                <option value="{{ proyecto.id }}" {% if proyecto.id == permiso.proyecto.id %}selected{% endif %}>{{ proyecto.nombre }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group mb-3">
+                                        <label for="tipo_permiso" class="form-label"><b>Tipo de Permiso:</b></label>
+                                        <input type="text" class="form-control" name="tipo_permiso" id="tipo_permiso" value="{{ permiso.tipo_permiso }}" required>
+                                    </div>
+
+                                    <div class="form-group mb-3">
+                                        <label for="fecha_emision" class="form-label"><b>Fecha de Emisión:</b></label>
+                                        <input type="date" class="form-control" name="fecha_emision" id="fecha_emision" value="{{ permiso.fecha_emision|date:'Y-m-d' }}" required>
+                                    </div>
+
+                                    <div class="form-group mb-3">
+                                        <label for="fecha_vencimiento" class="form-label"><b>Fecha de Vencimiento:</b></label>
+                                        <input type="date" class="form-control" name="fecha_vencimiento" id="fecha_vencimiento" value="{{ permiso.fecha_vencimiento|date:'Y-m-d' }}" required>
+                                    </div>
+
+                                    <div class="form-group mb-3">
+                                        <label for="estado" class="form-label"><b>Estado:</b></label>
+                                        <select class="form-control" name="estado" id="estado" required>
+                                            <option value="V" {% if permiso.estado == 'V' %}selected{% endif %}>Vigente</option>
+                                            <option value="E" {% if permiso.estado == 'E' %}selected{% endif %}>Expirado</option>
+                                            <option value="R" {% if permiso.estado == 'R' %}selected{% endif %}>Revocado</option>
+                                        </select>
+                                    </div>
+
+                                    <div>
+                                        <button type="submit" class="btn btn-success">Actualizar</button>
+                                        <a href="/listadoPermiso/" class="btn btn-danger">Cancelar</a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+<script>
+    $("#frm_editar_permiso").validate({
+        rules: {
+            "proyecto": {
+                required: true,
+            },
+            "tipo_permiso": {
+                required: true,
+            },
+            "fecha_emision": {
+                required: true,
+            },
+            "fecha_vencimiento": {
+                required: true,
+            },
+            "estado": {
+                required: true,
+            }
+        },
+        messages: {
+            "proyecto": {
+                required: "Por favor, seleccione un proyecto.",
+            },
+            "tipo_permiso": {
+                required: "Por favor, ingrese el tipo de permiso.",
+            },
+            "fecha_emision": {
+                required: "Por favor, ingrese la fecha de emisión.",
+            },
+            "fecha_vencimiento": {
+                required: "Por favor, ingrese la fecha de vencimiento.",
+            },
+            "estado": {
+                required: "Por favor, seleccione el estado del permiso.",
+            }
+        }
+    });
+</script>
+
+{% endblock %}

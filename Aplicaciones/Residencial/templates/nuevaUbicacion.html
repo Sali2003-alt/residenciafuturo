@@ -1,0 +1,100 @@
+{% extends "./plantilla.html" %}
+{% block contenido %}
+
+<div id="main">
+    <header class="mb-3">
+        <a href="#" class="burger-btn d-block d-xl-none">
+            <i class="bi bi-justify fs-3"></i>
+        </a>
+    </header>
+
+    <div class="page-heading"></div>
+    <div class="page-content">
+        <section class="row">
+            <div class="col-12 col-lg-9">
+                <div class="row"></div>
+            </div>
+        </section>
+    </div>
+
+    <br>
+    <div class="container d-flex justify-content-center align-items-center">
+        <div class="card p-4 shadow-sm">
+            <form action="/guardarUbicacion/" id="frm_nueva_ubicacion" method="post" class="p-4 border rounded bg-light">
+                <h3 class="text-center text-primary mb-4">Agregar Nueva Ubicación:</h3>
+                {% csrf_token %}
+
+                <div class="form-group mb-3">
+                    <label for="txt_direccion" class="form-label"><b>Dirección:</b></label>
+                    <input type="text" class="form-control" name="txt_direccion" id="txt_direccion" required>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="txt_ciudad" class="form-label"><b>Ciudad:</b></label>
+                    <input type="text" class="form-control" name="txt_ciudad" id="txt_ciudad" required>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="txt_provincia" class="form-label"><b>Provincia:</b></label>
+                    <input type="text" class="form-control" name="txt_provincia" id="txt_provincia" required>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="txt_pais" class="form-label"><b>País:</b></label>
+                    <input type="text" class="form-control" name="txt_pais" id="txt_pais" required>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="txt_codigo_postal" class="form-label"><b>Código Postal:</b></label>
+                    <input type="text" class="form-control" name="txt_codigo_postal" id="txt_codigo_postal" required>
+                </div>
+
+                <div>
+                    <button type="submit" class="btn btn-success">Guardar</button>
+                    <a href="/listadoUbicacion/" class="btn btn-danger">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    $("#frm_nueva_ubicacion").validate({
+        rules: {
+            "txt_direccion": {
+                required: true,
+            },
+            "txt_ciudad": {
+                required: true,
+            },
+            "txt_provincia": {
+                required: true,
+            },
+            "txt_pais": {
+                required: true,
+            },
+            "txt_codigo_postal": {
+                required: true,
+            }
+        },
+        messages: {
+            "txt_direccion": {
+                required: "Por favor, ingrese la dirección.",
+            },
+            "txt_ciudad": {
+                required: "Por favor, ingrese la ciudad.",
+            },
+            "txt_provincia": {
+                required: "Por favor, ingrese la provincia.",
+            },
+            "txt_pais": {
+                required: "Por favor, ingrese el país.",
+            },
+            "txt_codigo_postal": {
+                required: "Por favor, ingrese el código postal.",
+            }
+        }
+    });
+</script>
+
+{% endblock %}

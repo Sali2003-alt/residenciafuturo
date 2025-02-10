@@ -1,0 +1,78 @@
+{% extends "./plantilla.html" %}
+{% block contenido %}
+
+<div id="main">
+    <header class="mb-3">
+        <a href="#" class="burger-btn d-block d-xl-none">
+            <i class="bi bi-justify fs-3"></i>
+        </a>
+    </header>
+
+    <div class="page-heading">
+        <h1>Listado de Permisos</h1>
+    </div>
+    <div class="page-content">
+        <section class="row">
+            <div class="col-12 col-lg-9">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Permisos</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover mb-0" id="tbl_permisos">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Proyecto</th>
+                                                <th>Tipo de Permiso</th>
+                                                <th>Fecha de Emisión</th>
+                                                <th>Fecha de Vencimiento</th>
+                                                <th>Estado</th>
+                                                <th>Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for permiso in permisos %}
+                                            <tr>
+                                                <td>{{ permiso.id }}</td>
+                                                <td>{{ permiso.proyecto.nombre }}</td>
+                                                <td>{{ permiso.tipo_permiso }}</td>
+                                                <td>{{ permiso.fecha_emision }}</td>
+                                                <td>{{ permiso.fecha_vencimiento }}</td>
+                                                <td>{{ permiso.get_estado_display }}</td>
+                                                <td>
+                                                    <a href="/editarPermiso/{{ permiso.id }}" class="btn btn-warning">Editar</a>
+                                                    <a onclick="return confirm('¿Está seguro de eliminar este permiso?');" href="/eliminarPermiso/{{ permiso.id }}" class="btn btn-danger">Eliminar</a>
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        var table = $('#tbl_permisos').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                'copyHtml5',
+                'excelHtml5',
+                'csvHtml5',
+                'pdfHtml5'
+            ]
+        });
+    });
+</script>
+
+{% endblock %}

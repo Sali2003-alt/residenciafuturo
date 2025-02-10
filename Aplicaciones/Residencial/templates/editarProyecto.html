@@ -1,0 +1,118 @@
+{% extends "./plantilla.html" %}
+{% block contenido %}
+
+<div id="main">
+    <header class="mb-3">
+        <a href="#" class="burger-btn d-block d-xl-none">
+            <i class="bi bi-justify fs-3"></i>
+        </a>
+    </header>
+
+    <div class="page-heading"></div>
+    <div class="page-content">
+        <section class="row">
+            <div class="col-12 col-lg-9">
+                <div class="row"></div>
+            </div>
+        </section>
+    </div>
+
+    <br>
+    <div class="container d-flex justify-content-center align-items-center">
+        <div class="col-md-6">
+            <form action="/procesarEdicionProyecto/" id="frm_editar_proyecto" method="post" class="p-4 border rounded bg-light">
+                <h3 class="text-center mb-4">Editar Proyecto:</h3>
+                {% csrf_token %}
+                
+                <input type="hidden" name="id" value="{{ proyecto.id }}">
+
+                <div class="mb-3">
+                    <label for="txt_nombre" class="form-label"><b>Nombre del Proyecto:</b></label>
+                    <input type="text" class="form-control" name="txt_nombre" id="txt_nombre" value="{{ proyecto.nombre }}" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="txt_descripcion" class="form-label"><b>Descripción:</b></label>
+                    <textarea class="form-control" name="txt_descripcion" id="txt_descripcion" rows="3" required>{{ proyecto.descripcion }}</textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label for="txt_fecha_inicio" class="form-label"><b>Fecha de Inicio:</b></label>
+                    <input type="date" class="form-control" name="txt_fecha_inicio" id="txt_fecha_inicio" value="{{ proyecto.fecha_inicio|date:'Y-m-d' }}" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="txt_fecha_fin" class="form-label"><b>Fecha de Finalización:</b></label>
+                    <input type="date" class="form-control" name="txt_fecha_fin" id="txt_fecha_fin" value="{{ proyecto.fecha_fin|date:'Y-m-d' }}">
+                </div>
+
+                <div class="mb-3">
+                    <label for="sel_ubicacion" class="form-label"><b>Ubicación:</b></label>
+                    <select class="form-control" name="sel_ubicacion" id="sel_ubicacion" required>
+                        {% for ubicacion in ubicaciones %}
+                            <option value="{{ ubicacion.id }}" {% if ubicacion.id == proyecto.ubicacion.id %}selected{% endif %}>
+                                {{ ubicacion.direccion }}, {{ ubicacion.ciudad }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="sel_estado" class="form-label"><b>Estado:</b></label>
+                    <select class="form-control" name="sel_estado" id="sel_estado" required>
+                        <option value="P" {% if proyecto.estado == 'P' %}selected{% endif %}>Planificación</option>
+                        <option value="E" {% if proyecto.estado == 'E' %}selected{% endif %}>En Progreso</option>
+                        <option value="C" {% if proyecto.estado == 'C' %}selected{% endif %}>Completado</option>
+                        <option value="S" {% if proyecto.estado == 'S' %}selected{% endif %}>Suspendido</option>
+                    </select>
+                </div>
+
+                <div>
+                    <button type="submit" class="btn btn-success">Actualizar</button>
+                    <a href="/listadoProyecto/" class="btn btn-danger">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    $("#frm_editar_proyecto").validate({
+        rules: {
+            "txt_nombre": {
+                required: true,
+            },
+            "txt_descripcion": {
+                required: true,
+            },
+            "txt_fecha_inicio": {
+                required: true,
+            },
+            "sel_ubicacion": {
+                required: true,
+            },
+            "sel_estado": {
+                required: true,
+            }
+        },
+        messages: {
+            "txt_nombre": {
+                required: "Por favor, ingrese el nombre del proyecto.",
+            },
+            "txt_descripcion": {
+                required: "Por favor, ingrese una descripción.",
+            },
+            "txt_fecha_inicio": {
+                required: "Por favor, seleccione la fecha de inicio.",
+            },
+            "sel_ubicacion": {
+                required: "Por favor, seleccione una ubicación.",
+            },
+            "sel_estado": {
+                required: "Por favor, seleccione un estado.",
+            }
+        }
+    });
+</script>
+
+{% endblock %}

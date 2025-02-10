@@ -1,0 +1,106 @@
+{% extends "./plantilla.html" %}
+{% block contenido %}
+
+<div id="main">
+    <header class="mb-3">
+        <a href="#" class="burger-btn d-block d-xl-none">
+            <i class="bi bi-justify fs-3"></i>
+        </a>
+    </header>
+
+    <div class="page-heading">
+        <h1>Nuevo Presupuesto</h1>
+    </div>
+    <div class="page-content">
+        <section class="row">
+            <div class="col-12 col-lg-9">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Agregar Nuevo Presupuesto</h4>
+                            </div>
+                            <div class="card-body">
+                                <form enctype="multipart/form-data" action="/guardarPresupuesto/" id="frm_nuevo_presupuesto" method="post" class="p-4 border rounded bg-light">
+                                    {% csrf_token %}
+
+                                    <div class="form-group mb-3">
+                                        <label for="proyecto" class="form-label"><b>Proyecto:</b></label>
+                                        <select class="form-control" name="proyecto" id="proyecto" required>
+                                            {% for proyecto in proyectos %}
+                                                <option value="{{ proyecto.id }}">{{ proyecto.nombre }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group mb-3">
+                                        <label for="monto" class="form-label"><b>Monto:</b></label>
+                                        <input type="number" step="0.01" class="form-control" name="monto" id="monto" required>
+                                    </div>
+
+                                    <div class="form-group mb-3">
+                                        <label for="descripcion" class="form-label"><b>Descripción:</b></label>
+                                        <textarea class="form-control" name="descripcion" id="descripcion" rows="3" required></textarea>
+                                    </div>
+
+                                    <div class="form-group mb-3">
+                                        <label for="tipo" class="form-label"><b>Tipo de Presupuesto:</b></label>
+                                        <select class="form-control" name="tipo" id="tipo" required>
+                                            <option value="I">Inicial</option>
+                                            <option value="A">Ajustado</option>
+                                            <option value="F">Final</option>
+                                        </select>
+                                    </div>
+
+                                    <div>
+                                        <button type="submit" class="btn btn-success">Guardar</button>
+                                        <a href="/listadoPresupuesto/" class="btn btn-danger">Cancelar</a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+<script>
+    $("#frm_nuevo_presupuesto").validate({
+        rules: {
+            "proyecto": {
+                required: true,
+            },
+            "monto": {
+                required: true,
+                number: true,
+                min: 0,
+            },
+            "descripcion": {
+                required: true,
+            },
+            "tipo": {
+                required: true,
+            }
+        },
+        messages: {
+            "proyecto": {
+                required: "Por favor, seleccione un proyecto",
+            },
+            "monto": {
+                required: "Por favor, ingrese el monto",
+                number: "Por favor, ingrese un valor numérico",
+                min: "El monto no puede ser negativo",
+            },
+            "descripcion": {
+                required: "Por favor, ingrese una descripción",
+            },
+            "tipo": {
+                required: "Por favor, seleccione un tipo de presupuesto",
+            }
+        }
+    });
+</script>
+
+{% endblock %}

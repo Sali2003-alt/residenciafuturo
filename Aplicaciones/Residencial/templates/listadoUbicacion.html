@@ -1,0 +1,79 @@
+{% extends "./plantilla.html" %}
+{% block contenido %}
+
+<div id="main">
+    <header class="mb-3">
+        <a href="#" class="burger-btn d-block d-xl-none">
+            <i class="bi bi-justify fs-3"></i>
+        </a>
+    </header>
+
+    <div class="page-heading"></div>
+    <div class="page-content">
+        <section class="row">
+            <div class="col-12 col-lg-9">
+                <div class="row"></div>
+            </div>
+        </section>
+    </div>
+
+    <br><br>
+    <h3 class="text-center mb-4">Listado de Ubicaciones</h3>
+
+    <div class="container">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title"></h4>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0" id="tbl_ubicaciones">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Dirección</th>
+                                <th>Ciudad</th>
+                                <th>Provincia</th>
+                                <th>País</th>
+                                <th>Código Postal</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for ubicacion in ubicaciones %}
+                            <tr>
+                                <td>{{ ubicacion.id }}</td>
+                                <td>{{ ubicacion.direccion }}</td>
+                                <td>{{ ubicacion.ciudad }}</td>
+                                <td>{{ ubicacion.provincia }}</td>
+                                <td>{{ ubicacion.pais }}</td>
+                                <td>{{ ubicacion.codigo_postal }}</td>
+                                <td>
+                                    <a href="/editarUbicacion/{{ ubicacion.id }}" class="btn btn-warning">Editar</a>
+                                    <a onclick="return confirm('¿Está seguro de eliminar esta ubicación?');" href="/eliminarUbicacion/{{ ubicacion.id }}" class="btn btn-danger">Eliminar</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        var table = $('#tbl_ubicaciones').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                'copyHtml5',
+                'excelHtml5',
+                'csvHtml5',
+                'pdfHtml5'
+            ]
+        });
+    });
+</script>
+
+{% endblock %}
